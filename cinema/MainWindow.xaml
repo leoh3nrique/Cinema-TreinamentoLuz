@@ -3,10 +3,61 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:cinema"
+        xmlns:local="clr-namespace:cinema" xmlns:viewmodel="clr-namespace:cinema.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:MainVM}"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <!-- ListView para a lista de salas -->
+        <ListView ItemsSource="{Binding ListaSalas}" SelectedItem="{Binding SalaSelecionada}"  Margin="0,82,516,10">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Codigo" DisplayMemberBinding="{Binding Codigo}"/>
+                    <GridViewColumn Header="Nome" DisplayMemberBinding="{Binding Nome}"/>
+                    <GridViewColumn Header="Capacidade" DisplayMemberBinding="{Binding Capacidade}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <!-- ListView para a lista de filmes -->
+        <ListView ItemsSource="{Binding ListaFilmes}" SelectedItem="{Binding FilmeSelecionado}" Margin="289,82,266,10">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Codigo" DisplayMemberBinding="{Binding Codigo}"/>
+                    <GridViewColumn Header="Nome" DisplayMemberBinding="{Binding Nome}"/>
+                    <GridViewColumn Header="Ano Lançamento" DisplayMemberBinding="{Binding AnoLancamento}"/>
+                    <GridViewColumn Header="Diretor" DisplayMemberBinding="{Binding Diretor}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <!-- ListView para a lista de sessões -->
+        <ListView ItemsSource="{Binding ListaSessao}" SelectedItem="{Binding SessaoSelecionada}" Margin="539,82,0,10">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Codigo Filme" DisplayMemberBinding="{Binding CodigoFilme}"/>
+                    <GridViewColumn Header="Codigo Sala" DisplayMemberBinding="{Binding CodigoSala}"/>
+                    <GridViewColumn Header="Data" DisplayMemberBinding="{Binding Data}"/>
+                    <GridViewColumn Header="Horario" DisplayMemberBinding="{Binding Horario}"/>
+                    <GridViewColumn Header="Preço" DisplayMemberBinding="{Binding Preco}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Rectangle HorizontalAlignment="Left" Height="82" Stroke="Black" VerticalAlignment="Top" Width="246" Margin="20,0,0,0"/>
+        <Button Content="Adicionar" Command="{Binding AddSala}" HorizontalAlignment="Left" Margin="45,57,0,0" VerticalAlignment="Top"/>
+        <Button Content="Remover" Command ="{Binding RemoveSala}" HorizontalAlignment="Left" Margin="123,57,0,0" VerticalAlignment="Top"/>
+        <Button Content="Editar" Command="{Binding EditSala}" HorizontalAlignment="Left" Margin="198,57,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.686,-0.639"/>
+        <Rectangle HorizontalAlignment="Left" Height="82" Stroke="Black" VerticalAlignment="Top" Width="246" Margin="288,0,0,0"/>
+        <Button Content="Adicionar" Command="{Binding AddFilme}" HorizontalAlignment="Left" Margin="313,57,0,0" VerticalAlignment="Top"/>
+        <Button Content="Remover" Command ="{Binding RemoveFilme}" HorizontalAlignment="Left" Margin="391,57,0,0" VerticalAlignment="Top"/>
+        <Button Content="Editar" Command ="{Binding EditFilme}" HorizontalAlignment="Left" Margin="466,57,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.686,-0.639"/>
+        <Rectangle HorizontalAlignment="Left" Height="82" Stroke="Black" VerticalAlignment="Top" Width="246" Margin="544,0,0,0"/>
         
+        <Button Content="Adicionar" Command="{Binding AddSessao}" HorizontalAlignment="Left" Margin="569,57,0,0" VerticalAlignment="Top"/>
+        <Button Content="Remover" Command ="{Binding RemoveSessao}" HorizontalAlignment="Left" Margin="647,57,0,0" VerticalAlignment="Top"/>
+        <Button Content="Editar" Command ="{Binding EditSessao}" HorizontalAlignment="Left" Margin="722,57,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.686,-0.639"/>
     </Grid>
 </Window>

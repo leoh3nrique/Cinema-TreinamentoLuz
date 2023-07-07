@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace cinema.Models
 {
-    public class Sessao
+    public class Sessao : INotifyPropertyChanged
     {
         private string codigoFilme;
         private string codigoSala;
-        private DateTime data;
+        private string data;
         private string horario;
         private int preco;
 
         public Sessao() { }
 
-        public Sessao(string codigoFilme, string codigoSala, DateTime data, string horario, int preco)
+        public Sessao(string codigoFilme, string codigoSala, string data, string horario, int preco)
         {
             this.codigoFilme = codigoFilme;
             this.codigoSala = codigoSala;
@@ -24,30 +20,92 @@ namespace cinema.Models
             this.horario = horario;
             this.preco = preco;
         }
-        public string CodigoFilme { 
-            get {  return codigoFilme; }
-            set {  codigoFilme = value; } 
+
+        public string CodigoFilme
+        {
+            get { return codigoFilme; }
+            set
+            {
+                if (codigoFilme != value)
+                {
+                    codigoFilme = value;
+                    OnPropertyChanged(nameof(CodigoFilme));
+                }
+            }
         }
+
         public string CodigoSala
         {
             get { return codigoSala; }
-            set { codigoSala = value;}
+            set
+            {
+                if (codigoSala != value)
+                {
+                    codigoSala = value;
+                    OnPropertyChanged(nameof(CodigoSala));
+                }
+            }
         }
-        public DateTime Data
+
+        public string Data
         {
             get { return data; }
-            set { data = value; }
+            set
+            {
+                if (data != value)
+                {
+                    data = value;
+                    OnPropertyChanged(nameof(Data));
+                }
+            }
         }
+
         public string Horario
         {
             get { return horario; }
-            set { horario = value; }
+            set
+            {
+                if (horario != value)
+                {
+                    horario = value;
+                    OnPropertyChanged(nameof(Horario));
+                }
+            }
         }
+
         public int Preco
         {
             get { return preco; }
-            set { preco = value; }
+            set
+            {
+                if (preco != value)
+                {
+                    preco = value;
+                    OnPropertyChanged(nameof(Preco));
+                }
+            }
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public Sessao Clone()
+        {
+            return (Sessao)this.MemberwiseClone();
+        }
+
+        public void EditarSessao(Sessao copiaSessao)
+        {
+            this.CodigoFilme = copiaSessao.CodigoFilme;
+            this.CodigoSala = copiaSessao.CodigoSala;
+            this.Data = copiaSessao.Data;
+            this.Horario = copiaSessao.Horario;
+            this.Preco = copiaSessao.Preco;
+            this.OnPropertyChanged(null);
+        }
     }
 }

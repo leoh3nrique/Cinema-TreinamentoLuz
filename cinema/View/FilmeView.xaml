@@ -1,0 +1,17 @@
+﻿<Window x:Class="cinema.View.FilmeView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:cinema.View"
+        mc:Ignorable="d"
+        Title="SalaView" Height="450" Width="349">
+    <Grid Margin="0,0,0,-6">
+        <TextBox TextWrapping="Wrap" Text="{Binding Codigo}" Margin="84,61,88,344"/>
+        <TextBox TextWrapping="Wrap" Text="{Binding Nome}" Margin="84,116,88,289"/>
+        <TextBox TextWrapping="Wrap" Text="{Binding AnoLancamento}" Margin="84,163,88,242"/>
+        <TextBox TextWrapping="Wrap" Text="{Binding Diretor}" Margin="84,212,88,193"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="144,279,0,0" VerticalAlignment="Top" Click="btn_Salvar"/>
+    </Grid>
+
+</Window>

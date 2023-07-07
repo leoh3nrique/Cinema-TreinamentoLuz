@@ -1,46 +1,94 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace cinema.Models
 {
-    public class Filme
+    public class Filme : INotifyPropertyChanged
     {
         private string codigo;
         private string nome;
-        private string anoLancamento;
+        private int anoLancamento;
         private string diretor;
 
         public Filme() { }
 
-        public Filme(string codigo, string nome, string anoLancamento, string diretor)
+        public Filme(string codigo, string nome, int anoLancamento, string diretor)
         {
             this.codigo = codigo;
             this.nome = nome;
             this.anoLancamento = anoLancamento;
             this.diretor = diretor;
         }
+
         public string Codigo
         {
             get { return codigo; }
-            set { codigo = value; }
+            set
+            {
+                if (codigo != value)
+                {
+                    codigo = value;
+                    OnPropertyChanged(nameof(Codigo));
+                }
+            }
         }
+
         public string Nome
         {
             get { return nome; }
-            set { nome = value; }
+            set
+            {
+                if (nome != value)
+                {
+                    nome = value;
+                    OnPropertyChanged(nameof(Nome));
+                }
+            }
         }
-        public string AnoLancamento
+
+        public int AnoLancamento
         {
-            get { return anoLancamento;}
-            set { anoLancamento = value;}
+            get { return anoLancamento; }
+            set
+            {
+                if (anoLancamento != value)
+                {
+                    anoLancamento = value;
+                    OnPropertyChanged(nameof(AnoLancamento));
+                }
+            }
         }
+
         public string Diretor
         {
             get { return diretor; }
-            set { diretor = value; }
+            set
+            {
+                if (diretor != value)
+                {
+                    diretor = value;
+                    OnPropertyChanged(nameof(Diretor));
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public Filme Clone()
+        {
+            return (Filme)this.MemberwiseClone();
+        }
+        public void EditarFilme(Filme copiaFilme)
+        {
+            this.Codigo = copiaFilme.Codigo;
+            this.Nome = copiaFilme.Nome;
+            this.AnoLancamento = copiaFilme.AnoLancamento;
+            this.Diretor = copiaFilme.Diretor;
+            this.OnPropertyChanged(null);
         }
     }
 }
