@@ -5,13 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:cinema.View"
         mc:Ignorable="d"
-        Title="SalaView" Height="450" Width="349">
-    <Grid Margin="0,0,0,-6">
-        <TextBox TextWrapping="Wrap" Text="{Binding Codigo}" Margin="84,61,88,344"/>
-        <TextBox TextWrapping="Wrap" Text="{Binding Nome}" Margin="84,116,88,289"/>
-        <TextBox TextWrapping="Wrap" Text="{Binding AnoLancamento}" Margin="84,163,88,242"/>
-        <TextBox TextWrapping="Wrap" Text="{Binding Diretor}" Margin="84,212,88,193"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="144,279,0,0" VerticalAlignment="Top" Click="btn_Salvar"/>
-    </Grid>
+        Title="FilmeView" Height="300" Width="400" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Código:" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10"/>
+        <TextBox TextWrapping="Wrap" Text="{Binding Codigo}" Grid.Column="1" HorizontalAlignment="Stretch" Margin="10" Grid.Row="0"/>
+
+        <TextBlock Text="Nome:" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="1" Margin="10"/>
+        <TextBox TextWrapping="Wrap" Text="{Binding Nome}" Grid.Column="1" HorizontalAlignment="Stretch" Margin="10" Grid.Row="1"/>
+
+        <TextBlock Text="Ano de Lançamento:" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2" Margin="10"/>
+        <TextBox TextWrapping="Wrap" Text="{Binding AnoLancamento}" Grid.Column="1" HorizontalAlignment="Stretch" Margin="10" Grid.Row="2"/>
+
+        <TextBlock Text="Diretor:" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="3" Margin="10"/>
+        <TextBox TextWrapping="Wrap" Text="{Binding Diretor}" Grid.Column="1" HorizontalAlignment="Stretch" Margin="10" Grid.Row="3"/>
+
+        <Button Content="Salvar" Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="10" Click="btn_Salvar"/>
+    </Grid>
 </Window>

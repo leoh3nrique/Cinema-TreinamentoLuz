@@ -64,8 +64,11 @@ namespace cinema.Models
         public void EditarSala(Sala copiaSala)
         {
             this.Codigo = copiaSala.Codigo;
+
             this.Nome = copiaSala.Nome;
+
             this.Capacidade = copiaSala.Capacidade;
+            
             this.OnPropertyChanged(null);
         }
 

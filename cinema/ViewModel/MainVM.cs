@@ -1,6 +1,7 @@
 ﻿using cinema.Models;
 using cinema.View;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace cinema.ViewModel
@@ -102,6 +103,8 @@ namespace cinema.ViewModel
 
                     telaSala.DataContext = salaTemporaria;
 
+     
+
                     if (telaSala.ShowDialog().Equals(true))
                     {
                         SalaSelecionada.EditarSala(salaTemporaria);
@@ -147,7 +150,6 @@ namespace cinema.ViewModel
 
                     if (telaFilme.ShowDialog().Equals(true))
                     {
-                        
                         FilmeSelecionado.EditarFilme(filmeTemporario);
                     }
                 }
@@ -156,8 +158,6 @@ namespace cinema.ViewModel
 
         public void IniciaComandosSessao()
         {
-            
-
             AddSessao = new RelayCommand((object_) =>
             {
                 SessaoView telaSessao = new SessaoView();
@@ -166,9 +166,21 @@ namespace cinema.ViewModel
 
                 telaSessao.DataContext = novaSessao;
 
-                telaSessao.ShowDialog();
 
-                ListaSessao.Add(novaSessao);
+                if (telaSessao.ShowDialog().Equals(true))
+                {
+                    bool verificaFilme = novaSessao.VerificarExistenciaFilme(ListaFilmes, novaSessao.CodigoFilme);
+                    bool verificaSala = novaSessao.VerificarExistenciaSala(ListaSalas, novaSessao.CodigoSala);
+
+                    if (verificaFilme && verificaSala )
+                    {
+                        ListaSessao.Add(novaSessao);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Filme ou Sala inválidos!");
+                    }
+                }
             });
             RemoveSessao = new RelayCommand((object_) => {
 
@@ -187,9 +199,18 @@ namespace cinema.ViewModel
 
                     if (telaSessao.ShowDialog().Equals(true))
                     {
-                        SessaoSelecionada.EditarSessao(sessaoTemporaria);
-                    }
+                        bool verificaFilme = sessaoTemporaria.VerificarExistenciaFilme(ListaFilmes, sessaoTemporaria.CodigoFilme);
+                        bool verificaSala = sessaoTemporaria.VerificarExistenciaSala(ListaSalas, sessaoTemporaria.CodigoSala);
 
+                        if (verificaFilme && verificaSala)
+                        {
+                            SessaoSelecionada.EditarSessao(sessaoTemporaria);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Filme ou Sala inválidos!");
+                        }
+                    }
                 }
             });
         }

@@ -25,5 +25,10 @@ namespace cinema
             InitializeComponent();
             DataContext = new ViewModel.MainVM();
         }
+
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

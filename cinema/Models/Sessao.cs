@@ -1,4 +1,8 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.IO;
 
 namespace cinema.Models
 {
@@ -6,9 +10,16 @@ namespace cinema.Models
     {
         private string codigoFilme;
         private string codigoSala;
-        private string data;
+        private DateTime data;
         private string horario;
         private int preco;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         public Sessao() { }
 
@@ -47,7 +58,7 @@ namespace cinema.Models
             }
         }
 
-        public string Data
+        public DateTime Data
         {
             get { return data; }
             set
@@ -86,12 +97,6 @@ namespace cinema.Models
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
 
         public Sessao Clone()
         {
@@ -107,5 +112,41 @@ namespace cinema.Models
             this.Preco = copiaSessao.Preco;
             this.OnPropertyChanged(null);
         }
+         public bool VerificarExistenciaFilme(ObservableCollection<Filme> ListaFilmes, string codigoFilme)
+        {
+            foreach (Filme filme in ListaFilmes)
+            {
+                if (filme.Codigo == codigoFilme)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public bool VerificarExistenciaSala(ObservableCollection<Sala> ListaSalas, string codigoSala)
+        {
+            foreach (Sala sala in ListaSalas)
+            {
+                if (sala.Codigo == codigoSala)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool VerificarHorario(ObservableCollection<Sessao> ListaSessao, string horario)
+        {
+            foreach (Sessao sessao in ListaSessao )
+            {
+                if (sessao.Horario == horario)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
     }
 }
