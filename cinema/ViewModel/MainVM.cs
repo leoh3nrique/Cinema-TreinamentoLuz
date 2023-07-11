@@ -1,28 +1,37 @@
 ﻿using cinema.Models;
 using cinema.View;
-using System.Collections.ObjectModel;
+using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 
 namespace cinema.ViewModel
 {
-    public class MainVM
+    public class MainVM : INotifyPropertyChanged
     {
-        public ObservableCollection<Filme> ListaFilmes { get; private set;}
-        
-        public ObservableCollection<Sala> ListaSalas { get; private set; }
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        public ObservableCollection<Sessao> ListaSessao { get; private set; }
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public List<Filme> ListaFilmes { get; private set; }
+
+        public List<Sala> ListaSalas { get; private set; }
+
+        public List<Sessao> ListaSessao { get; private set; }
 
         public Filme FilmeSelecionado { get; set; }
-
-        public Sala SalaSelecionada { get;  set; }
-        public Sessao SessaoSelecionada { get; set;}
+        public Sala SalaSelecionada { get; set; }
+        public Sessao SessaoSelecionada { get; set; }
 
         public ICommand AddFilme { get; private set; }
         public ICommand RemoveFilme { get; private set; }
         public ICommand EditFilme { get; private set; }
-      
+
         public ICommand AddSala { get; private set; }
         public ICommand RemoveSala { get; private set; }
         public ICommand EditSala { get; private set; }
@@ -30,47 +39,24 @@ namespace cinema.ViewModel
         public ICommand AddSessao { get; private set; }
         public ICommand RemoveSessao { get; private set; }
         public ICommand EditSessao { get; private set; }
-       
 
+        private MySqlDatabase database;
 
-        public MainVM() 
+        public MainVM()
         {
-            ListaSalas = new ObservableCollection<Sala>
-            {
-                new Sala()
-                {
-                    Codigo = "s001",
-                    Nome= "Sala 01",
-                    Capacidade = 60
-                }
-            };
-            ListaFilmes = new ObservableCollection<Filme>()
-            {
-                new Filme()
-                {
-                    Codigo = "f001",
-                    Nome = "Filme 1",
-                    AnoLancamento = 2000,
-                    Diretor = "Diretor 1"
-                }
-            };
-            ListaSessao = new ObservableCollection<Sessao>()
-            {
-                new Sessao()
-                {
-                    CodigoFilme = "f001",
-                    CodigoSala = "s001",
-                    Data = "2023-01-01",
-                    Horario = "20:00",
-                    Preco = 30
-                }
-            };
+            database = new MySqlDatabase();
+
+            ListaFilmes = database.GetFilmes();
+
+            ListaSalas = database.GetSalas();
+
+            ListaSessao = database.GetSessoes();
+
             IniciaComandosSala();
             IniciaComandosFilmes();
             IniciaComandosSessao();
         }
 
-   
         public void IniciaComandosSala()
         {
             AddSala = new RelayCommand((object_) =>
@@ -83,13 +69,18 @@ namespace cinema.ViewModel
 
                 if (telaSala.ShowDialog().Equals(true))
                 {
-                    ListaSalas.Add(novaSala);
+                    database.AddSala(novaSala);
+                    ListaSalas = database.GetSalas();
+                    OnPropertyChanged("ListaSalas");
                 }
             });
 
-            RemoveSala = new RelayCommand((object_) => {
+            RemoveSala = new RelayCommand((object_) =>
+            {
 
-                ListaSalas.Remove(SalaSelecionada);
+                database.RemoveSala(SalaSelecionada);
+                ListaSalas = database.GetSalas();
+                OnPropertyChanged("ListaSalas");
 
             });
 
@@ -97,17 +88,18 @@ namespace cinema.ViewModel
             {
                 if (SalaSelecionada != null)
                 {
-                    Sala salaTemporaria = SalaSelecionada.Clone(); 
+                    Sala salaTemporaria = SalaSelecionada.Clone();
 
                     SalaView telaSala = new SalaView();
 
                     telaSala.DataContext = salaTemporaria;
 
-     
 
                     if (telaSala.ShowDialog().Equals(true))
                     {
-                        SalaSelecionada.EditarSala(salaTemporaria);
+                        database.EditaSala(salaTemporaria);
+                        ListaSalas = database.GetSalas();
+                        OnPropertyChanged("ListaSalas");
                     }
                 }
             });
@@ -126,14 +118,19 @@ namespace cinema.ViewModel
 
                 if (telaFilme.ShowDialog().Equals(true))
                 {
-  
-                    ListaFilmes.Add(novoFilme);
+
+                    database.AddFilme(novoFilme);
+                    ListaFilmes = database.GetFilmes();
+                    OnPropertyChanged("ListaFilmes");
                 }
             });
 
-            RemoveFilme = new RelayCommand((object_) => {
+            RemoveFilme = new RelayCommand((object_) =>
+            {
 
-                ListaFilmes.Remove(FilmeSelecionado);
+                database.RemoveFilme(FilmeSelecionado);
+                ListaFilmes = database.GetFilmes();
+                OnPropertyChanged("ListaFilmes");
 
             });
 
@@ -150,7 +147,9 @@ namespace cinema.ViewModel
 
                     if (telaFilme.ShowDialog().Equals(true))
                     {
-                        FilmeSelecionado.EditarFilme(filmeTemporario);
+                        database.EditaFilme(filmeTemporario);
+                        ListaFilmes = database.GetFilmes();
+                        OnPropertyChanged("ListaFilmes");
                     }
                 }
             });
@@ -169,22 +168,20 @@ namespace cinema.ViewModel
 
                 if (telaSessao.ShowDialog().Equals(true))
                 {
-                    bool verificaFilme = novaSessao.VerificarExistenciaFilme(ListaFilmes, novaSessao.CodigoFilme);
-                    bool verificaSala = novaSessao.VerificarExistenciaSala(ListaSalas, novaSessao.CodigoSala);
 
-                    if (verificaFilme && verificaSala )
-                    {
-                        ListaSessao.Add(novaSessao);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Filme ou Sala inválidos!");
-                    }
+
+                    database.AddSessao(novaSessao);
+                    ListaSessao = database.GetSessoes();
+                    OnPropertyChanged("ListaSessao");
+
                 }
             });
-            RemoveSessao = new RelayCommand((object_) => {
+            RemoveSessao = new RelayCommand((object_) =>
+            {
 
-                ListaSessao.Remove(SessaoSelecionada);
+                database.RemoveSessao(SessaoSelecionada);
+                ListaSessao = database.GetSessoes();
+                OnPropertyChanged("ListaSessao");
 
             });
             EditSessao = new RelayCommand((object_) =>
@@ -199,21 +196,14 @@ namespace cinema.ViewModel
 
                     if (telaSessao.ShowDialog().Equals(true))
                     {
-                        bool verificaFilme = sessaoTemporaria.VerificarExistenciaFilme(ListaFilmes, sessaoTemporaria.CodigoFilme);
-                        bool verificaSala = sessaoTemporaria.VerificarExistenciaSala(ListaSalas, sessaoTemporaria.CodigoSala);
 
-                        if (verificaFilme && verificaSala)
-                        {
-                            SessaoSelecionada.EditarSessao(sessaoTemporaria);
-                        }
-                        else
-                        {
-                            MessageBox.Show("Filme ou Sala inválidos!");
-                        }
+                        database.EditaSessao(sessaoTemporaria);
+                        ListaSessao = database.GetSessoes();
+                        OnPropertyChanged("ListaSessao");
+
                     }
                 }
             });
         }
-        
     }
-}
+    }

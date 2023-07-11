@@ -27,16 +27,15 @@
         <TextBox TextWrapping="Wrap" Text="{Binding CodigoSala}" Grid.Column="1" HorizontalAlignment="Stretch" Margin="10" Grid.Row="1"/>
 
         <TextBlock Text="Data:" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="2" Margin="10"/>
-        <DatePicker SelectedDate="{Binding Data}" SelectedDateFormat="Short" Margin="10,10,95,10" Grid.Row="2" Grid.Column="1"/>
-
-
+        <TextBox TextWrapping="Wrap" Text="{Binding Data, StringFormat={}{0:dd/MM/yyyy}}" Grid.Column="1" HorizontalAlignment="Stretch" Margin="10" Grid.Row="2"/>
 
         <TextBlock Text="Horário:" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="3" Margin="10"/>
-        <TextBox TextWrapping="Wrap" Text="{Binding Horario}" Grid.Column="1" HorizontalAlignment="Stretch" Margin="10" Grid.Row="3"/>
+        <TextBox TextWrapping="Wrap" Text="{Binding Horario, StringFormat={}{0:HH:mm}}" Grid.Column="1" HorizontalAlignment="Stretch" Margin="10" Grid.Row="3"/>
+
 
         <TextBlock Text="Preço:" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="4" Margin="10"/>
         <TextBox TextWrapping="Wrap" Text="{Binding Preco}" Grid.Column="1" HorizontalAlignment="Stretch" Margin="10" Grid.Row="4"/>
 
-        <Button Content="Salvar" Grid.Row="5" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="10" Click="btn_Salvar"/>
+        <Button Content="Salvar" Grid.Row="4" HorizontalAlignment="Left" Margin="89,44,0,-24" Click="btn_Salvar" Grid.Column="1"/>
     </Grid>
 </Window>

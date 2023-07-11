@@ -23,7 +23,7 @@ namespace cinema.Models
 
         public Sessao() { }
 
-        public Sessao(string codigoFilme, string codigoSala, string data, string horario, int preco)
+        public Sessao(string codigoFilme, string codigoSala, DateTime data, string horario, int preco)
         {
             this.codigoFilme = codigoFilme;
             this.codigoSala = codigoSala;
@@ -112,41 +112,7 @@ namespace cinema.Models
             this.Preco = copiaSessao.Preco;
             this.OnPropertyChanged(null);
         }
-         public bool VerificarExistenciaFilme(ObservableCollection<Filme> ListaFilmes, string codigoFilme)
-        {
-            foreach (Filme filme in ListaFilmes)
-            {
-                if (filme.Codigo == codigoFilme)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-        public bool VerificarExistenciaSala(ObservableCollection<Sala> ListaSalas, string codigoSala)
-        {
-            foreach (Sala sala in ListaSalas)
-            {
-                if (sala.Codigo == codigoSala)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        public bool VerificarHorario(ObservableCollection<Sessao> ListaSessao, string horario)
-        {
-            foreach (Sessao sessao in ListaSessao )
-            {
-                if (sessao.Horario == horario)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
+     
 
     }
 }
