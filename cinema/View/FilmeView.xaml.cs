@@ -10,25 +10,22 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace cinema
+namespace cinema.View
 {
     /// <summary>
-    /// Interação lógica para MainWindow.xam
+    /// Lógica interna para FilmeView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class FilmeView : Window
     {
-        public MainWindow()
+        public FilmeView()
         {
             InitializeComponent();
-            DataContext = new ViewModel.MainVM();
         }
-
-        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public void btn_Salvar(object sender, RoutedEventArgs e)
         {
-
+            DialogResult = true;
         }
     }
 }

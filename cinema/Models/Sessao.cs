@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.IO;
 
 namespace cinema.Models
 {
-    public class Sessao
+    public class Sessao 
     {
         private string codigoFilme;
         private string codigoSala;
@@ -24,30 +24,88 @@ namespace cinema.Models
             this.horario = horario;
             this.preco = preco;
         }
-        public string CodigoFilme { 
-            get {  return codigoFilme; }
-            set {  codigoFilme = value; } 
+
+        public string CodigoFilme
+        {
+            get { return codigoFilme; }
+            set
+            {
+                if (codigoFilme != value)
+                {
+                    codigoFilme = value;
+                    
+                }
+            }
         }
+
         public string CodigoSala
         {
             get { return codigoSala; }
-            set { codigoSala = value;}
+            set
+            {
+                if (codigoSala != value)
+                {
+                    codigoSala = value;
+                    
+                }
+            }
         }
+
         public DateTime Data
         {
             get { return data; }
-            set { data = value; }
+            set
+            {
+                if (data != value)
+                {
+                    data = value;
+                    
+                }
+            }
         }
+
         public string Horario
         {
             get { return horario; }
-            set { horario = value; }
+            set
+            {
+                if (horario != value)
+                {
+                    horario = value;
+                    
+                }
+            }
         }
+
         public int Preco
         {
             get { return preco; }
-            set { preco = value; }
+            set
+            {
+                if (preco != value)
+                {
+                    preco = value;
+                    
+                }
+            }
         }
+
+
+        public Sessao Clone()
+        {
+            return (Sessao)this.MemberwiseClone();
+        }
+
+        public void EditarSessao(Sessao copiaSessao)
+        {
+            this.CodigoFilme = copiaSessao.CodigoFilme;
+            this.CodigoSala = copiaSessao.CodigoSala;
+            this.Data = copiaSessao.Data;
+            this.Horario = copiaSessao.Horario;
+            this.Preco = copiaSessao.Preco;
+           
+        }
+     
 
     }
 }

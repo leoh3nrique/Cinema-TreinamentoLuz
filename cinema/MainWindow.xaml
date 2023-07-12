@@ -4,9 +4,82 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:cinema"
+        xmlns:viewmodel="clr-namespace:cinema.ViewModel"
+        d:DataContext="{d:DesignInstance Type=viewmodel:MainVM}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Cinema" Height="450" Width="800">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Salas -->
+        <Border Grid.Column="0" BorderBrush="Black" BorderThickness="1" Margin="10,10,581,10">
+            <StackPanel>
+                <TextBlock Text="Salas" FontWeight="Bold" HorizontalAlignment="Center" Margin="0 10 0 0"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10 0 0">
+                    <Button Content="Adicionar" Command="{Binding AddSala}" Width="60" Height ="20" Margin="0 0 5 5"/>
+                    <Button Content="Remover" Command="{Binding RemoveSala}" Width="60" Height ="20" Margin="0 0 5 5"/>
+                    <Button Content="Editar" Command="{Binding EditSala}" Width="60" Height ="20" Margin="0 0 5 5"/>
+                </StackPanel>
+                <ListView ItemsSource="{Binding ListaSalas}" SelectedItem="{Binding SalaSelecionada}" Height="Auto" MaxHeight="200">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Código" DisplayMemberBinding="{Binding Codigo}"/>
+                            <GridViewColumn Header="Nome" DisplayMemberBinding="{Binding Nome}"/>
+                            <GridViewColumn Header="Capacidade" DisplayMemberBinding="{Binding Capacidade}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+            </StackPanel>
+        </Border>
+
+        <!-- Filmes -->
+        <Border BorderBrush="Black" BorderThickness="1" Margin="239,10,301,10">
+            <StackPanel Margin="0,1,-1,-1">
+                <TextBlock Text="Filmes" FontWeight="Bold" HorizontalAlignment="Center" Margin="0 10 0 0"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10 0 0">
+                    <Button Content="Adicionar" Command="{Binding AddFilme}" Width="60" Height ="20" Margin="0 0 5 5"/>
+                    <Button Content="Remover" Command="{Binding RemoveFilme}" Width="60" Height ="20" Margin="0 0 5 5"/>
+                    <Button Content="Editar" Command="{Binding EditFilme}" Width="60" Height ="20" Margin="0 0 5 5"/>
+                </StackPanel>
+                <ListView ItemsSource="{Binding ListaFilmes}" SelectedItem="{Binding FilmeSelecionado}" Height="Auto" MaxHeight="200" d:ItemsSource="{d:SampleData ItemCount=5}">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Código" DisplayMemberBinding="{Binding Codigo}"/>
+                            <GridViewColumn Header="Nome" DisplayMemberBinding="{Binding Nome}"/>
+                            <GridViewColumn Header="Ano" DisplayMemberBinding="{Binding AnoLancamento}"/>
+                            <GridViewColumn Header="Diretor" DisplayMemberBinding="{Binding Diretor}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+            </StackPanel>
+        </Border>
+
+        <!-- Sessões -->
+        <Border BorderBrush="Black" BorderThickness="1" Margin="526,10,10,10">
+            <StackPanel Margin="-1,0,0,0">
+                <TextBlock Text="Sessões" FontWeight="Bold" HorizontalAlignment="Center" Margin="0 10 0 0"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10 0 0">
+                    <Button Content="Adicionar" Command="{Binding AddSessao}" Width="60" Height ="20" Margin="0 0 5 5"/>
+                    <Button Content="Remover" Command="{Binding RemoveSessao}"  Width="60" Height ="20" Margin="0 0 5 5"/>
+                    <Button Content="Editar" Command="{Binding EditSessao}"  Width="60" Height ="20" Margin="0 0 5 5"/>
+                </StackPanel>
+                <ListView ItemsSource="{Binding ListaSessao}" SelectedItem="{Binding SessaoSelecionada}" Height="Auto" MaxHeight="200" RenderTransformOrigin="0.559,0.472" d:ItemsSource="{d:SampleData ItemCount=5}" Width="300" SelectionChanged="ListView_SelectionChanged" VerticalAlignment="Top" HorizontalAlignment="Left">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Filme" DisplayMemberBinding="{Binding CodigoFilme}"/>
+                            <GridViewColumn Header="Sala" DisplayMemberBinding="{Binding CodigoSala}"/>
+                            <GridViewColumn Header="Data" DisplayMemberBinding="{Binding Data}"/>
+                            <GridViewColumn Header="Horário" DisplayMemberBinding="{Binding Horario}"/>
+                            <GridViewColumn Header="Preço" DisplayMemberBinding="{Binding Preco}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>
