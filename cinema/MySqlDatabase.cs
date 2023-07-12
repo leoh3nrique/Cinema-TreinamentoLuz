@@ -1,4 +1,5 @@
-﻿using cinema.Models;
+﻿using cinema;
+using cinema.Models;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 
-public class MySqlDatabase
+public class MySqlDatabase : IDatabase
 {
     private const string connectionString = "server=localhost;port=3307;user=root;password=0909;database=cinema";
 

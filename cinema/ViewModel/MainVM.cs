@@ -40,7 +40,7 @@ namespace cinema.ViewModel
         public ICommand RemoveSessao { get; private set; }
         public ICommand EditSessao { get; private set; }
 
-        private MySqlDatabase database;
+        private readonly IDatabase database;
 
         public MainVM()
         {
