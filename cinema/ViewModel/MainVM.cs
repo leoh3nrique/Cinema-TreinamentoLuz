@@ -44,7 +44,7 @@ namespace cinema.ViewModel
 
         public MainVM()
         {
-            database = new MySqlDatabase();
+            database = new PostgresDatabase();
 
             ListaFilmes = database.GetFilmes();
 
