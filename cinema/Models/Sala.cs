@@ -2,7 +2,7 @@
 
 namespace cinema.Models
 {
-    public class Sala : INotifyPropertyChanged
+    public class Sala
     {
         private string codigo;
         private string nome;
@@ -25,7 +25,7 @@ namespace cinema.Models
                 if (codigo != value)
                 {
                     codigo = value;
-                    OnPropertyChanged(nameof(Codigo));
+                    
                 }
             }
         }
@@ -38,7 +38,7 @@ namespace cinema.Models
                 if (nome != value)
                 {
                     nome = value;
-                    OnPropertyChanged(nameof(Nome));
+                
                 }
             }
         }
@@ -51,7 +51,7 @@ namespace cinema.Models
                 if (capacidade != value)
                 {
                     capacidade = value;
-                    OnPropertyChanged(nameof(Capacidade));
+                    
                 }
             }
         }
@@ -69,14 +69,9 @@ namespace cinema.Models
 
             this.Capacidade = copiaSala.Capacidade;
             
-            this.OnPropertyChanged(null);
+   
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+       
     }
 }

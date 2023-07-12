@@ -12,24 +12,21 @@ public class MySqlDatabase
 
     private void ExecuteQuery(string query)
     {
-        try
+        using (MySqlConnection connection = new MySqlConnection(connectionString))
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            try
             {
                 using (MySqlCommand command = new MySqlCommand(query, connection))
                 {
                     connection.Open();
                     command.ExecuteNonQuery();
                 }
+
             }
-        }
-        catch (MySqlException ex)
-        {
-            MessageBox.Show(ex.Message);
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show(ex.Message);
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 
@@ -41,24 +38,32 @@ public class MySqlDatabase
         using (MySqlConnection connection = new MySqlConnection(connectionString))
         {
             string selectQuery = "SELECT * FROM filmes";
-            using (MySqlCommand command = new MySqlCommand(selectQuery, connection))
-            {
-                connection.Open();
-                using (MySqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        Filme filme = new Filme
-                        {
-                            Codigo = reader.GetString("codigo"),
-                            Nome = reader.GetString("nome"),
-                            AnoLancamento = reader.GetInt32("anoLancamento"),
-                            Diretor = reader.GetString("diretor")
-                        };
 
-                        filmes.Add(filme);
+            try
+            {
+                using (MySqlCommand command = new MySqlCommand(selectQuery, connection))
+                {
+                    connection.Open();
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Filme filme = new Filme
+                            {
+                                Codigo = reader.GetString("codigo"),
+                                Nome = reader.GetString("nome"),
+                                AnoLancamento = reader.GetInt32("anoLancamento"),
+                                Diretor = reader.GetString("diretor")
+                            };
+
+                            filmes.Add(filme);
+                        }
                     }
                 }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
         return filmes;
@@ -91,23 +96,30 @@ public class MySqlDatabase
         using (MySqlConnection connection = new MySqlConnection(connectionString))
         {
             string selectQuery = "SELECT * FROM sala";
-            using (MySqlCommand command = new MySqlCommand(selectQuery, connection))
+            try
             {
-                connection.Open();
-                using (MySqlDataReader reader = command.ExecuteReader())
+                using (MySqlCommand command = new MySqlCommand(selectQuery, connection))
                 {
-                    while (reader.Read())
+                    connection.Open();
+                    using (MySqlDataReader reader = command.ExecuteReader())
                     {
-                        Sala sala = new Sala
+                        while (reader.Read())
                         {
-                            Codigo = reader.GetString("codigo"),
-                            Nome = reader.GetString("nome"),
-                            Capacidade = reader.GetInt32("capacidade")
-                        };
+                            Sala sala = new Sala
+                            {
+                                Codigo = reader.GetString("codigo"),
+                                Nome = reader.GetString("nome"),
+                                Capacidade = reader.GetInt32("capacidade")
+                            };
 
-                        salas.Add(sala);
+                            salas.Add(sala);
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
         return salas;
@@ -138,25 +150,33 @@ public class MySqlDatabase
         using (MySqlConnection connection = new MySqlConnection(connectionString))
         {
             string selectQuery = "SELECT * FROM sessao";
-            using (MySqlCommand command = new MySqlCommand(selectQuery, connection))
-            {
-                connection.Open();
-                using (MySqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        Sessao sessao = new Sessao
-                        {
-                            CodigoFilme = reader.GetString("codigoFilme"),
-                            CodigoSala = reader.GetString("codigoSala"),
-                            Data = reader.GetDateTime("data"),
-                            Horario = reader.GetString("horario"),
-                            Preco = reader.GetInt32("preco")
-                        };
 
-                        sessoes.Add(sessao);
+            try
+            {
+                using (MySqlCommand command = new MySqlCommand(selectQuery, connection))
+                {
+                    connection.Open();
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Sessao sessao = new Sessao
+                            {
+                                CodigoFilme = reader.GetString("codigoFilme"),
+                                CodigoSala = reader.GetString("codigoSala"),
+                                Data = reader.GetDateTime("data"),
+                                Horario = reader.GetString("horario"),
+                                Preco = reader.GetInt32("preco")
+                            };
+
+                            sessoes.Add(sessao);
+                        }
                     }
                 }
+            }
+            catch (Exception ex) 
+            {
+                MessageBox.Show(ex.Message);
             }
         }
         return sessoes;
@@ -179,8 +199,4 @@ public class MySqlDatabase
         string updateQuery = $"UPDATE sessao SET data = '{sessao.Data}', horario = '{sessao.Horario}', preco = {sessao.Preco} WHERE codigoFilme = '{sessao.CodigoFilme}' AND codigoSala = '{sessao.CodigoSala}'";
         ExecuteQuery(updateQuery);
     }
-
-
-
-
 }

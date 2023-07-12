@@ -70,7 +70,9 @@ namespace cinema.ViewModel
                 if (telaSala.ShowDialog().Equals(true))
                 {
                     database.AddSala(novaSala);
+
                     ListaSalas = database.GetSalas();
+
                     OnPropertyChanged("ListaSalas");
                 }
             });
@@ -79,7 +81,9 @@ namespace cinema.ViewModel
             {
 
                 database.RemoveSala(SalaSelecionada);
+
                 ListaSalas = database.GetSalas();
+
                 OnPropertyChanged("ListaSalas");
 
             });
@@ -98,7 +102,9 @@ namespace cinema.ViewModel
                     if (telaSala.ShowDialog().Equals(true))
                     {
                         database.EditaSala(salaTemporaria);
+
                         ListaSalas = database.GetSalas();
+
                         OnPropertyChanged("ListaSalas");
                     }
                 }
@@ -120,7 +126,9 @@ namespace cinema.ViewModel
                 {
 
                     database.AddFilme(novoFilme);
+
                     ListaFilmes = database.GetFilmes();
+
                     OnPropertyChanged("ListaFilmes");
                 }
             });
@@ -129,7 +137,9 @@ namespace cinema.ViewModel
             {
 
                 database.RemoveFilme(FilmeSelecionado);
+
                 ListaFilmes = database.GetFilmes();
+
                 OnPropertyChanged("ListaFilmes");
 
             });
@@ -148,7 +158,9 @@ namespace cinema.ViewModel
                     if (telaFilme.ShowDialog().Equals(true))
                     {
                         database.EditaFilme(filmeTemporario);
+
                         ListaFilmes = database.GetFilmes();
+
                         OnPropertyChanged("ListaFilmes");
                     }
                 }
@@ -165,13 +177,13 @@ namespace cinema.ViewModel
 
                 telaSessao.DataContext = novaSessao;
 
-
                 if (telaSessao.ShowDialog().Equals(true))
                 {
 
-
                     database.AddSessao(novaSessao);
+
                     ListaSessao = database.GetSessoes();
+
                     OnPropertyChanged("ListaSessao");
 
                 }
@@ -180,7 +192,9 @@ namespace cinema.ViewModel
             {
 
                 database.RemoveSessao(SessaoSelecionada);
+
                 ListaSessao = database.GetSessoes();
+
                 OnPropertyChanged("ListaSessao");
 
             });
@@ -198,7 +212,9 @@ namespace cinema.ViewModel
                     {
 
                         database.EditaSessao(sessaoTemporaria);
+
                         ListaSessao = database.GetSessoes();
+
                         OnPropertyChanged("ListaSessao");
 
                     }

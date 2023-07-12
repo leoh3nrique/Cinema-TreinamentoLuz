@@ -6,20 +6,13 @@ using System.IO;
 
 namespace cinema.Models
 {
-    public class Sessao : INotifyPropertyChanged
+    public class Sessao 
     {
         private string codigoFilme;
         private string codigoSala;
         private DateTime data;
         private string horario;
         private int preco;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
 
         public Sessao() { }
 
@@ -40,7 +33,7 @@ namespace cinema.Models
                 if (codigoFilme != value)
                 {
                     codigoFilme = value;
-                    OnPropertyChanged(nameof(CodigoFilme));
+                    
                 }
             }
         }
@@ -53,7 +46,7 @@ namespace cinema.Models
                 if (codigoSala != value)
                 {
                     codigoSala = value;
-                    OnPropertyChanged(nameof(CodigoSala));
+                    
                 }
             }
         }
@@ -66,7 +59,7 @@ namespace cinema.Models
                 if (data != value)
                 {
                     data = value;
-                    OnPropertyChanged(nameof(Data));
+                    
                 }
             }
         }
@@ -79,7 +72,7 @@ namespace cinema.Models
                 if (horario != value)
                 {
                     horario = value;
-                    OnPropertyChanged(nameof(Horario));
+                    
                 }
             }
         }
@@ -92,7 +85,7 @@ namespace cinema.Models
                 if (preco != value)
                 {
                     preco = value;
-                    OnPropertyChanged(nameof(Preco));
+                    
                 }
             }
         }
@@ -110,7 +103,7 @@ namespace cinema.Models
             this.Data = copiaSessao.Data;
             this.Horario = copiaSessao.Horario;
             this.Preco = copiaSessao.Preco;
-            this.OnPropertyChanged(null);
+           
         }
      
 
