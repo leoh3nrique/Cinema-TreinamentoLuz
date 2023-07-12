@@ -9,7 +9,7 @@ using System.Windows;
 
 public class PostgresDatabase : IDatabase
 {
-    private const string connectionString = "Host=localhost;Port=5432;Username=postgres;Password=0909;Database=cinema";
+    private const string connectionString = "host=localhost;port=5432;username=postgres;password=0909;database=cinema-postgres";
 
     private void ExecuteQuery(string query)
     {
@@ -36,12 +36,14 @@ public class PostgresDatabase : IDatabase
     {
         List<Filme> filmes = new List<Filme>();
 
-        using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+        //troquei o try de lugar, mudar isso em todos
+        try
         {
-            string selectQuery = "SELECT * FROM filmes";
-
-            try
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
             {
+                string selectQuery = "SELECT * FROM filmes";
+
+
                 using (NpgsqlCommand command = new NpgsqlCommand(selectQuery, connection))
                 {
                     connection.Open();
@@ -61,12 +63,11 @@ public class PostgresDatabase : IDatabase
                         }
                     }
                 }
-            }
-            catch (Exception ex)
+            }               
+        }catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-        }
         return filmes;
     }
 
