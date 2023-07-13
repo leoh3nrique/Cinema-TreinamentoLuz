@@ -1,8 +1,6 @@
-﻿using System.ComponentModel;
-
-namespace cinema.Models
+﻿namespace cinema.Models
 {
-    public class Filme 
+    public class Filme
     {
         private string codigo;
         private string nome;
@@ -27,7 +25,7 @@ namespace cinema.Models
                 if (codigo != value)
                 {
                     codigo = value;
-                    
+
                 }
             }
         }
@@ -40,7 +38,7 @@ namespace cinema.Models
                 if (nome != value)
                 {
                     nome = value;
-                   
+
                 }
             }
         }
@@ -53,7 +51,7 @@ namespace cinema.Models
                 if (anoLancamento != value)
                 {
                     anoLancamento = value;
-                   
+
                 }
             }
         }
@@ -66,12 +64,10 @@ namespace cinema.Models
                 if (diretor != value)
                 {
                     diretor = value;
-                    
+
                 }
             }
         }
-
-       
 
         public Filme Clone()
         {
@@ -83,7 +79,7 @@ namespace cinema.Models
             this.Nome = copiaFilme.Nome;
             this.AnoLancamento = copiaFilme.AnoLancamento;
             this.Diretor = copiaFilme.Diretor;
-           
+
         }
     }
 }

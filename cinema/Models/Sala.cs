@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace cinema.Models
+﻿namespace cinema.Models
 {
     public class Sala
     {
@@ -25,7 +23,7 @@ namespace cinema.Models
                 if (codigo != value)
                 {
                     codigo = value;
-                    
+
                 }
             }
         }
@@ -38,7 +36,7 @@ namespace cinema.Models
                 if (nome != value)
                 {
                     nome = value;
-                
+
                 }
             }
         }
@@ -51,7 +49,7 @@ namespace cinema.Models
                 if (capacidade != value)
                 {
                     capacidade = value;
-                    
+
                 }
             }
         }
@@ -68,10 +66,10 @@ namespace cinema.Models
             this.Nome = copiaSala.Nome;
 
             this.Capacidade = copiaSala.Capacidade;
-            
-   
+
+
         }
 
-       
+
     }
 }
