@@ -3,8 +3,6 @@ using cinema.Models;
 using Npgsql;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Windows;
 
 public class PostgresDatabase : IDatabase
@@ -63,11 +61,12 @@ public class PostgresDatabase : IDatabase
                         }
                     }
                 }
-            }               
-        }catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
             }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message);
+        }
         return filmes;
     }
 

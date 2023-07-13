@@ -3,8 +3,6 @@ using cinema.Models;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Windows;
 
 public class MySqlDatabase : IDatabase
@@ -62,13 +60,13 @@ public class MySqlDatabase : IDatabase
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
         return filmes;
-    } 
+    }
 
     public void AddFilme(Filme filme)
     {
@@ -175,7 +173,7 @@ public class MySqlDatabase : IDatabase
                     }
                 }
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }

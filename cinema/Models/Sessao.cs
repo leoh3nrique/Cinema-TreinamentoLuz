@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.IO;
 
 namespace cinema.Models
 {
-    public class Sessao 
+    public class Sessao
     {
         private string codigoFilme;
         private string codigoSala;
@@ -33,7 +29,7 @@ namespace cinema.Models
                 if (codigoFilme != value)
                 {
                     codigoFilme = value;
-                    
+
                 }
             }
         }
@@ -46,7 +42,7 @@ namespace cinema.Models
                 if (codigoSala != value)
                 {
                     codigoSala = value;
-                    
+
                 }
             }
         }
@@ -59,7 +55,7 @@ namespace cinema.Models
                 if (data != value)
                 {
                     data = value;
-                    
+
                 }
             }
         }
@@ -72,7 +68,7 @@ namespace cinema.Models
                 if (horario != value)
                 {
                     horario = value;
-                    
+
                 }
             }
         }
@@ -85,7 +81,7 @@ namespace cinema.Models
                 if (preco != value)
                 {
                     preco = value;
-                    
+
                 }
             }
         }
@@ -103,9 +99,9 @@ namespace cinema.Models
             this.Data = copiaSessao.Data;
             this.Horario = copiaSessao.Horario;
             this.Preco = copiaSessao.Preco;
-           
+
         }
-     
+
 
     }
 }

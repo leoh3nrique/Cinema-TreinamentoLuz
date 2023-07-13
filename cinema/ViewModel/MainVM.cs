@@ -1,10 +1,7 @@
 ﻿using cinema.Models;
 using cinema.View;
-using MySql.Data.MySqlClient;
-using MySqlX.XDevAPI;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Windows;
 using System.Windows.Input;
 
 namespace cinema.ViewModel
@@ -40,17 +37,17 @@ namespace cinema.ViewModel
         public ICommand RemoveSessao { get; private set; }
         public ICommand EditSessao { get; private set; }
 
-        private readonly IDatabase database;
+        private IDatabase database;
 
-        public MainVM()
+        public MainVM( IDatabase Adatabase)
         {
-            database = new PostgresDatabase();
+            database = Adatabase; 
 
-            ListaFilmes = database.GetFilmes();
+            ListaFilmes = Adatabase.GetFilmes();
 
-            ListaSalas = database.GetSalas();
+            ListaSalas = Adatabase.GetSalas();
 
-            ListaSessao = database.GetSessoes();
+            ListaSessao = Adatabase.GetSessoes();
 
             IniciaComandosSala();
             IniciaComandosFilmes();
@@ -222,4 +219,4 @@ namespace cinema.ViewModel
             });
         }
     }
-    }
+}
