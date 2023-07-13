@@ -29,19 +29,20 @@ public class PostgresDatabase : IDatabase
         }
     }
 
+
+
     //Filmes
     public List<Filme> GetFilmes()
     {
         List<Filme> filmes = new List<Filme>();
 
         //troquei o try de lugar, mudar isso em todos
-        try
+
+        using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
         {
-            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            string selectQuery = "SELECT * FROM filmes";
+            try
             {
-                string selectQuery = "SELECT * FROM filmes";
-
-
                 using (NpgsqlCommand command = new NpgsqlCommand(selectQuery, connection))
                 {
                     connection.Open();
@@ -61,12 +62,16 @@ public class PostgresDatabase : IDatabase
                         }
                     }
                 }
+
+            }
+
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
-        catch (Exception ex)
-        {
-            MessageBox.Show(ex.Message);
-        }
+
         return filmes;
     }
 
