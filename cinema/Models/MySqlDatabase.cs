@@ -8,6 +8,7 @@ using System.Windows;
 
 public class MySqlDatabase : IDatabase
 {
+    //teste
     private const string connectionString = "server=localhost;port=3307;user=root;password=0909;database=cinema";
 
     private readonly MySqlConnection connection;
