@@ -39,15 +39,15 @@ namespace cinema.ViewModel
 
         private IDatabase database;
 
-        public MainVM( IDatabase Adatabase)
+        public MainVM( )
         {
-            database = Adatabase; 
+            database = new MySqlDatabase(); 
 
-            ListaFilmes = Adatabase.GetFilmes();
+            ListaFilmes = database.GetFilmes();
 
-            ListaSalas = Adatabase.GetSalas();
+            ListaSalas = database.GetSalas();
 
-            ListaSessao = Adatabase.GetSessoes();
+            ListaSessao = database.GetSessoes();
 
             IniciaComandosSala();
             IniciaComandosFilmes();

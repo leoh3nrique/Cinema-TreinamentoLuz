@@ -24,10 +24,9 @@ namespace cinema
         {
             InitializeComponent();
 
-            IDatabase MySqlDatabase = new MySqlDatabase();
-            IDatabase PostgresDatabase = new PostgresDatabase();
+            
 
-            DataContext = new ViewModel.MainVM(MySqlDatabase);
+            DataContext = new ViewModel.MainVM();
         }
 
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
